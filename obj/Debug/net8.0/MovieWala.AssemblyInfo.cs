@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MovieWala")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+879b58ded3523c759fc8f7f1117c59602603b09d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f93691faeffb2465c8490098195b3cf0c5f33832")]
 [assembly: System.Reflection.AssemblyProductAttribute("MovieWala")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MovieWala")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

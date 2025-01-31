@@ -1,8 +1,12 @@
-﻿namespace MovieWala.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MovieWala.Models
 {
     public class Customer
     {
         public int Id { get; set; }
+        [Required]
+        [MaxLength(255)]
         public string Name { get; set; } = string.Empty;
         public bool IsSubscribedToNewsletter { get; set; }
 

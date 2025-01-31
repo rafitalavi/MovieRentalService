@@ -1,29 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;  // Add this for Include method
+using MovieWala.Data;
 using MovieWala.Models;
 
-namespace MovieWala.Controllers
-{
-    public class CustomersController : Controller
+public class CustomersController : Controller
+{//ForbidResult reading Data from dtabase
+    private readonly MovieWalaContext _context;
+
+    // Constructor injection 
+    public CustomersController(MovieWalaContext context)
     {
-        public ViewResult Index()
-        {
-            var customers = GetCustomers();
-            return View(customers);
-        }
-        public ActionResult Details(int id)
-        {
-            var customer = GetCustomers().SingleOrDefault(c => c.Id == id);
-            if (customer == null)
-                return NotFound();
-            return View(customer);
-        }
-        private IEnumerable<Customer> GetCustomers()
-        {
-            return new List<Customer>
-            {
-                new Customer { Id = 1, Name = "John Smith" },
-                new Customer { Id = 2, Name = "Mary Williams" }
-            };
-        }
+        _context = context;
+    }
+
+    public ViewResult Index()
+    {
+        // Ensure Include is properly recognized
+        var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+        return View(customers);
+    }
+
+    public ActionResult Details(int id)
+    {
+        var customer = _context.Customers.Include(c => c.MembershipType)
+                                         .SingleOrDefault(c => c.Id == id);
+        if (customer == null)
+            return NotFound();
+
+        return View(customer);
     }
 }
