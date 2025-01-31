@@ -1,7 +1,20 @@
+using Microsoft.EntityFrameworkCore;
+using MovieWala.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add DbContext to the DI container
+builder.Services.AddDbContext<MovieWalaContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add Swagger for development
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddSwaggerGen();
+}
 
 var app = builder.Build();
 
@@ -9,8 +22,12 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+}
+else
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -20,13 +37,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-//app.MapControllerRoute(
-//    name: "MoviesByReleaseDate",
-//    pattern: "movies/released/{year:int}/{month:int}",  // Enforce year and month as integers
-//    defaults: new { controller = "Movies", action = "ByReleaseDate" }
-
-//);
-
+// Mapping default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
