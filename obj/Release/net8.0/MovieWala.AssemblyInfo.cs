@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MovieWala")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ff1cd3bfad8d2149f0c3a758333d074c7db29d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ed2594cd02ad5ec35305803a6948ebcd422293f")]
 [assembly: System.Reflection.AssemblyProductAttribute("MovieWala")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MovieWala")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
