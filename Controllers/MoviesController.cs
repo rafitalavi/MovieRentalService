@@ -1,29 +1,47 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieWala.Models;
 using MovieWala.ViewModels;
+using Microsoft.EntityFrameworkCore;  // Add this for Include method
+using MovieWala.Data;
 
 namespace MovieWala.Controllers
 {
     public class MoviesController : Controller
     {
+        private readonly MovieWalaContext _context;
+
+        // Constructor injection of MovieWalaContext
+        public MoviesController(MovieWalaContext context)
+        {
+            _context = context;
+        }
+
+        // Dispose method is no longer needed when using dependency injection
+        // protected override void Dispose(bool disposing)
+        // {
+        //     _context.Dispose();
+        // }
+
         public ViewResult Index()
         {
-            var movies = GetMovies();
+            // Eager loading of the Genre property
+            var movies = _context.Movies.Include(m => m.Genre).ToList();
             return View(movies);
         }
-        private IEnumerable<Movie> GetMovies()
+
+        public ActionResult Details(int id)
         {
-            return new List<Movie>
-            {
-                new Movie { Id = 1, Name = "Shrek" },
-                new Movie { Id = 2, Name = "Wall-e" }
-            };
+            // Eager loading of Genre in Details view
+            var movie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
+            if (movie == null)
+                return NotFound();
+            return View(movie);
         }
 
         public IActionResult Random()
         {
+            // Creating a new movie object
             var movie = new Movie() { Name = "Shrek!" };
-            //var viewResult = new ViewResult();
 
             // List of customers
             var customers = new List<Customer>
@@ -32,14 +50,14 @@ namespace MovieWala.Controllers
                 new Customer { Name = "Maruf" }
             };
 
+            // ViewModel to pass the movie and customer list to the view
             var viewModel = new RandomMovieViewModel
             {
                 Movie = movie,
                 Customers = customers
             };
 
-            //viewResult.ViewData.Model
-            // Correct return options:
+            // Return the view with the view model
             return View(viewModel); // Returns a View with the movie model
             // return Content("HELLO WORLD"); // Returns a simple text response
             // return NotFound(); // ✅ Correct replacement for HttpNotFound()
