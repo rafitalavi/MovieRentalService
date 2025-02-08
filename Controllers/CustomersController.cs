@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;  // Add this for Include method
 using MovieWala.Data;
 using MovieWala.Models;
+using MovieWala.ViewModels;
 
 public class CustomersController : Controller
 {//ForbidResult reading Data from dtabase
@@ -12,7 +13,27 @@ public class CustomersController : Controller
     {
         _context = context;
     }
+    public ActionResult New()
+    {    var membershipTypes =_context.MembershipTypes.ToList();
+        var viewModel = new NewCustomerViewModel
+        { MembershipTypes = membershipTypes };
+        return View(viewModel);
+    }
+    [HttpPost]
+    public ActionResult Create(Customer customer) {
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            foreach (var error in errors)
+            {
+                Console.WriteLine(error.ErrorMessage);  // Log validation errors
+            }
+        }
 
+        _context.Customers.Add(customer);
+        _context.SaveChanges();
+        return RedirectToAction("Index", "Customers");
+  }
     public ViewResult Index()
     {
         // Ensure Include is properly recognized

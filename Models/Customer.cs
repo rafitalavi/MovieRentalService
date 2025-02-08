@@ -9,12 +9,13 @@ namespace MovieWala.Models
         [Required]
         [MaxLength(255)]
         public string Name { get; set; } = string.Empty;
-
-        public DateTime Birthday { get; set; }   // Corrected spelling of "Birthday"
+        [Display(Name = "Date of Birth")]
+        public DateTime? Birthday { get; set; }   // Corrected spelling of "Birthday"
 
         public bool IsSubscribedToNewsletter { get; set; }
 
         // Foreign key reference to MembershipType
+        [Display(Name = "MemberShip Type")]
         public int? MembershipTypeId { get; set; }
         public MembershipType MembershipType { get; set; }  // Navigation property
     }

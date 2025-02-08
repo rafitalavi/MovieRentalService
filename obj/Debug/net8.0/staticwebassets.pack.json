@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\bootstrap-cyborg.css"
     },
     {
+      "Id": "I:\\asp\\MovieWala\\MovieWala\\wwwroot\\css\\custom.css",
+      "PackagePath": "staticwebassets\\css\\custom.css"
+    },
+    {
       "Id": "I:\\asp\\MovieWala\\MovieWala\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

@@ -1,0 +1,64 @@
+﻿@model MovieWala.ViewModels.NewCustomerViewModel
+@{
+    ViewBag.Title = "New Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+
+@using (Html.BeginForm("Create", "Customers", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Name)
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Birthday)
+        @Html.TextBoxFor(m => m.Customer.Birthday, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(m => m.Customer.Birthday, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group form-check">
+        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter, new { @class = "form-check-input" })
+        @Html.LabelFor(m => m.Customer.IsSubscribedToNewsletter, new { @class = "form-check-label" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId,
+                new SelectList(Model.MembershipTypes, "Id", "Name"),
+                "Select Membership Type",
+                new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+
+
+@* <script type="text/javascript"> *@
+@*     // document.getElementById("customerForm").addEventListener("submit", function(event) { *@
+@*         // Prevent the default form submission *@
+@*         // event.preventDefault(); *@
+
+@*         // Capture the input data *@
+@*         // var customerData = { *@
+@*         //     Name: document.getElementById("customerName").value, *@
+@*         //     Birthday: document.getElementById("customerBirthday").value, *@
+@*         //     IsSubscribedToNewsletter: document.getElementById("customerNewsletter").checked, *@
+@*         //     MembershipTypeId: document.getElementById("customerMembershipTypeId").value *@
+@*         // }; *@
+
+@*         // Log the form data to the console *@
+@*         // console.log("Form Data:", customerData); *@
+
+@*         // Optionally, submit the form here if you want to continue submission *@
+@*         // this.submit(); // Uncomment this line to actually submit the form after logging the data *@
+@*     // }); *@
+@*      document.getElementById("customerForm").addEventListener("submit", function() { *@
+@*         console.log("Form is submitting..."); *@
+@*     }); *@
+
+@* </script> *@
