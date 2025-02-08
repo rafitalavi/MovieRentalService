@@ -15,12 +15,12 @@ public class CustomersController : Controller
     }
     public ActionResult New()
     {    var membershipTypes =_context.MembershipTypes.ToList();
-        var viewModel = new NewCustomerViewModel
+        var viewModel = new CustomerFormViewModel
         { MembershipTypes = membershipTypes };
-        return View(viewModel);
+        return View("CustomerForm",viewModel);
     }
     [HttpPost]
-    public ActionResult Create(Customer customer) {
+    public ActionResult Save(Customer customer) {
         if (!ModelState.IsValid)
         {
             var errors = ModelState.Values.SelectMany(v => v.Errors);
@@ -29,8 +29,17 @@ public class CustomersController : Controller
                 Console.WriteLine(error.ErrorMessage);  // Log validation errors
             }
         }
+        if (customer.Id == 0)
+            _context.Customers.Add(customer);
+        else {
+            var customerIndb = _context.Customers.Single(c => c.Id == customer.Id);
+            customerIndb.Name = customer.Name;
+            customerIndb.Birthday = customer.Birthday;
+            customerIndb.MembershipType = customer.MembershipType;
+            customerIndb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+        }
 
-        _context.Customers.Add(customer);
+
         _context.SaveChanges();
         return RedirectToAction("Index", "Customers");
   }
@@ -40,7 +49,16 @@ public class CustomersController : Controller
         var customers = _context.Customers.Include(c => c.MembershipType).ToList();
         return View(customers);
     }
-
+    public ActionResult Edit(int id)
+    {
+        var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+        if (customer == null)
+            return NotFound();
+        var viewModel = new CustomerFormViewModel
+        { Customer = customer,
+        MembershipTypes = _context.MembershipTypes.ToList()};
+        return View("CustomerForm", viewModel);
+    }
     public ActionResult Details(int id)
     {
         var customer = _context.Customers.Include(c => c.MembershipType)

@@ -1,12 +1,12 @@
-﻿@model MovieWala.ViewModels.NewCustomerViewModel
+﻿@model MovieWala.ViewModels.CustomerFormViewModel
 @{
     ViewBag.Title = "New Customer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>New Customer</h2>
-<a asp-controller="Customers" asp-action="Index" class="btn btn-info mt-3 mb-3">Add New Customer</a>
-@using (Html.BeginForm("Create", "Customers", FormMethod.Post))
+<a asp-controller="Customers" asp-action="Index" class="btn btn-info mt-3 mb-3">Back to Customers</a>
+@using (Html.BeginForm("Save", "Customers", FormMethod.Post))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.Name)
@@ -20,10 +20,7 @@
         @Html.ValidationMessageFor(m => m.Customer.Birthday, "", new { @class = "text-danger" })
     </div>
 
-    <div class="form-group form-check">
-        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter, new { @class = "form-check-input" })
-        @Html.LabelFor(m => m.Customer.IsSubscribedToNewsletter, new { @class = "form-check-label" })
-    </div>
+  
 
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.MembershipTypeId)
@@ -33,6 +30,11 @@
                 new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId, "", new { @class = "text-danger" })
     </div>
+    <div class="form-group form-check">
+        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter, new { @class = "form-check-input" })
+        @Html.LabelFor(m => m.Customer.IsSubscribedToNewsletter, new { @class = "form-check-label" })
+    </div>
+    @Html.HiddenFor(m => m.Customer.Id)
 
     <button type="submit" class="btn btn-primary mt-3">Submit</button>
 }

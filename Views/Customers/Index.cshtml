@@ -20,6 +20,7 @@ else
             <tr>
                 <th>Customer</th>
                 <th>Membership Type</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +29,13 @@ else
                 <tr>
                     <td>@Html.ActionLink(customer.Name, "Details", "Customers", new { id = customer.Id }, null)</td>
                     <td>@customer.MembershipType.Name</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "Customers", new { id = customer.Id }, new { @class = "btn btn-danger" })
+                        @Html.ActionLink("Details", "Details", "Customers", new { id = customer.Id }, new { @class = "btn btn-info" })
+                    </td>
+
+
+
                 </tr>
             }
         </tbody>

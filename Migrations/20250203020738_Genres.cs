@@ -8,7 +8,7 @@ namespace MovieWala.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // Create the table
+            // Save the table
             migrationBuilder.CreateTable(
                 name: "Genres",
                 columns: table => new
