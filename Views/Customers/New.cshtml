@@ -5,7 +5,7 @@
 }
 
 <h2>New Customer</h2>
-
+<a asp-controller="Customers" asp-action="Index" class="btn btn-info mt-3 mb-3">Add New Customer</a>
 @using (Html.BeginForm("Create", "Customers", FormMethod.Post))
 {
     <div class="form-group">
@@ -34,7 +34,7 @@
         @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId, "", new { @class = "text-danger" })
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
 }
 
 
