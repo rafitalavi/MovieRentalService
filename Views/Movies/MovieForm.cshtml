@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model MovieWala.ViewModels.MovieFormViewModel
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+<a asp-controller="Movies" asp-action="Index" class="btn btn-info mt-3 mb-3">Back to Movies</a>
+@using (Html.BeginForm("Save", "Movies", FormMethod.Post)){
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Name)
+        @Html.TextBoxFor(m => m.Movie.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.ReleaseDate)
+        @Html.TextBoxFor(m => m.Movie.ReleaseDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(m => m.Movie.ReleaseDate, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.GenreId)
+        @Html.DropDownListFor(m => m.Movie.GenreId,
+                new SelectList(Model.Genres, "Id", "Name"),
+                "Select Membership Type",
+                new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Movie.GenreId, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.NumberInStock)
+        @Html.TextBoxFor(m => m.Movie.NumberInStock, new { @class = "form-control" })
+    </div>
+    @Html.HiddenFor(m => m.Movie.Id)
+
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    }
